@@ -28,7 +28,6 @@
     /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
   }
 
-
   table {
     width: 100%;
   }
@@ -44,6 +43,7 @@
   tr:nth-child(odd) td {
     background-color: #F7F7F7!important;
   }
+
 
   .boo th{
     background-color:#373A3C;
@@ -106,50 +106,49 @@
     overflow: hidden;
     background-size: cover;
     background-position: center;
-    background-image: url('images/pharmacy.jpg');
+    background-image: url('images/doctor.jpg');
+  }
+
+  .driver {
+    color: orange;
+  }
+
+  .delivered {
+    color: green;
   }
 
 
-    .driver {
-      color: orange;
-    }
+  .status .driver {
+    display: none;
+  }
 
-    .delivered {
-      color: green;
-    }
+  .status .delivered {
+    display: none;
+  }
 
+  .status.driver .driver {
+    display: block;
+  }
 
-    .status .driver {
-      display: none;
-    }
+  .status.driver .button-container {
+    display: none;
+  }
 
-    .status .delivered {
-      display: none;
-    }
+  .status.driver .delivered {
+    display: none;
+  }
 
-    .status.driver .driver {
-      display: block;
-    }
+  .status.delivered .driver {
+    display: none;
+  }
 
-    .status.driver .button-container {
-      display: none;
-    }
+  .status.delivered .delivered {
+    display: block;
+  }
 
-    .status.driver .delivered {
-      display: none;
-    }
-
-    .status.delivered .driver {
-      display: none;
-    }
-
-    .status.delivered .delivered {
-      display: block;
-    }
-
-    .status.delivered .button-container {
-      display: none;
-    }
+  .status.delivered .button-container {
+    display: none;
+  }
   </style>
 
 </head>
@@ -176,7 +175,7 @@
     <th>Order Number</th>
     <th>Date/Time</th>
     <th>
-      pharmacy's Name
+      Patient's Name
     </th>
 
     <th>
@@ -193,11 +192,10 @@
     <td>16:55 - 02.07.2017</td>
     <td>John Doe</td>
     <td>orthomol immun 90g</td>
-
     <td class="status">
       <span class="button-container"><a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a></span>
-      <span class="delivered">Delivered</span>
-      <span class="driver">Driver on the way</span>
+      <span class="delivered" onClick="sendIt(1)" >Delivered</span>
+      <span class="driver" onClick="sendIt(1)" >Driver on the way</span>
     </td>
   </tr>
 
@@ -206,7 +204,6 @@
     <td>16:55 - 02.07.2017</td>
     <td>John Doe</td>
     <td>orthomol immun 90g</td>
-
     <td class="status driver">
       <span class="button-container"><a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a></span>
       <span class="delivered">Delivered</span>
@@ -220,7 +217,6 @@
     <td>16:55 - 02.07.2017</td>
     <td>John Doe</td>
     <td>orthomol immun 90g</td>
-
     <td class="status delivered">
       <span class="button-container"><a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a></span>
       <span class="delivered">Delivered</span>
@@ -254,7 +250,7 @@
 <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 <script>
 var i = 1;
-
+var k=0;
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -268,15 +264,29 @@ var pusher = new Pusher('b91115f15fb79204ed0d', {
 
 var channel = pusher.subscribe('private-drugeroo-channel');
 channel.bind('client-doctor-pharmacy-event', function(data) {
+
   document.getElementById('ew'+i).style["display"] = "table-row";
-  i++;
+
+
 });
 
-function sendIt(x){
+channel.bind('client-driver-arrived-event', function(data) {
 
-  document.getElementById('rr'+x).style["display"] = "table-row";
-  document.getElementById('rr'+x).style["color"] = "#E46847";
-  document.getElementById('button'+x).style["display"] = "none";
+  $('#ew1').find('.status').removeClass('driver').addClass('delivered');
+
+});
+
+
+
+
+function sendIt(x){
+//  $('.button-container').css('display', 'table-row');
+
+
+$('#ew1').find('.status').addClass('driver');
+
+  //document.getElementById('rr'+x).style["color"] = "#E46847";
+//  document.getElementById('button'+x).style["display"] = "none";
   var triggered = channel.trigger('client-doctor-confirmed-event', { });
 
 }
