@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title> Doctor's dashboard</title>
+  <title> Pharmacy's dashboard</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -20,6 +20,15 @@
   {
 
     font-family: 'Open Sans', sans-serif;
+  }
+
+
+  .driver {
+    color: #E46847!important;
+  }
+
+  .delivered {
+    color: green!important;
   }
 
   body {
@@ -108,47 +117,6 @@
     background-position: center;
     background-image: url('images/doctor.jpg');
   }
-
-  .driver {
-    color: orange;
-  }
-
-  .delivered {
-    color: green;
-  }
-
-
-  .status .driver {
-    display: none;
-  }
-
-  .status .delivered {
-    display: none;
-  }
-
-  .status.driver .driver {
-    display: block;
-  }
-
-  .status.driver .button-container {
-    display: none;
-  }
-
-  .status.driver .delivered {
-    display: none;
-  }
-
-  .status.delivered .driver {
-    display: none;
-  }
-
-  .status.delivered .delivered {
-    display: block;
-  }
-
-  .status.delivered .button-container {
-    display: none;
-  }
   </style>
 
 </head>
@@ -187,42 +155,46 @@
     </th>
   </tr>
 
-  <tr id="ew1">
+
+      <tr id="ew1">
+        <td>#443543231354</td>
+        <td>16:55 - 02.07.2017</td>
+        <td>John Doe</td>
+        <td>orthomol immun 90g</td>
+        <td id="button1">
+          <a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a>
+
+        </td>
+        <td id="rr1">
+          Driver on the way
+        </td>
+
+
+      </tr>
+  <tr id="">
     <td>#443543231354</td>
     <td>16:55 - 02.07.2017</td>
     <td>John Doe</td>
     <td>orthomol immun 90g</td>
-    <td class="status">
-      <span class="button-container"><a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a></span>
-      <span class="delivered" onClick="sendIt(1)" >Delivered</span>
-      <span class="driver" onClick="sendIt(1)" >Driver on the way</span>
+    <td class="driver">
+      Driver on the way
     </td>
   </tr>
+
 
   <tr id="">
     <td>#443543231354</td>
     <td>16:55 - 02.07.2017</td>
     <td>John Doe</td>
     <td>orthomol immun 90g</td>
-    <td class="status driver">
-      <span class="button-container"><a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a></span>
-      <span class="delivered">Delivered</span>
-      <span class="driver">Driver on the way</span>
+    <td class="delivered">
+      Delivered
     </td>
   </tr>
 
 
-  <tr id="">
-    <td>#443543231354</td>
-    <td>16:55 - 02.07.2017</td>
-    <td>John Doe</td>
-    <td>orthomol immun 90g</td>
-    <td class="status delivered">
-      <span class="button-container"><a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a></span>
-      <span class="delivered">Delivered</span>
-      <span class="driver">Driver on the way</span>
-    </td>
-  </tr>
+
+
 
 </table>
 
@@ -250,7 +222,10 @@
 <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 <script>
 var i = 1;
-var k=0;
+
+var k =0;
+document.getElementById('ew'+i).style["display"] = "table-row";
+
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -264,29 +239,25 @@ var pusher = new Pusher('b91115f15fb79204ed0d', {
 
 var channel = pusher.subscribe('private-drugeroo-channel');
 channel.bind('client-doctor-pharmacy-event', function(data) {
-
-  document.getElementById('ew'+i).style["display"] = "table-row";
-
-
+  if(k==0){
+    document.getElementById('ew'+i).style["display"] = "table-row";
+    i++;
+    k++;
+  } else {
+    
+  }
 });
-
-channel.bind('client-driver-arrived-event', function(data) {
-
-  $('#ew1').find('.status').removeClass('driver').addClass('delivered');
-
-});
-
-
-
 
 function sendIt(x){
-//  $('.button-container').css('display', 'table-row');
 
 
-$('#ew1').find('.status').addClass('driver');
 
-  //document.getElementById('rr'+x).style["color"] = "#E46847";
-//  document.getElementById('button'+x).style["display"] = "none";
+  document.getElementById('rr'+x).style["display"] = "table-row";
+  document.getElementById('rr'+x).style["color"] = "#E46847";
+  document.getElementById('button'+x).style["display"] = "none";
+
+
+
   var triggered = channel.trigger('client-doctor-confirmed-event', { });
 
 }
