@@ -29,14 +29,6 @@
   }
 
 
-  .driver {
-    color: #E46847!important;
-  }
-
-  .delivered {
-    color: green!important;
-  }
-
   table {
     width: 100%;
   }
@@ -116,6 +108,48 @@
     background-position: center;
     background-image: url('images/pharmacy.jpg');
   }
+
+
+    .driver {
+      color: orange;
+    }
+
+    .delivered {
+      color: green;
+    }
+
+
+    .status .driver {
+      display: none;
+    }
+
+    .status .delivered {
+      display: none;
+    }
+
+    .status.driver .driver {
+      display: block;
+    }
+
+    .status.driver .button-container {
+      display: none;
+    }
+
+    .status.driver .delivered {
+      display: none;
+    }
+
+    .status.delivered .driver {
+      display: none;
+    }
+
+    .status.delivered .delivered {
+      display: block;
+    }
+
+    .status.delivered .button-container {
+      display: none;
+    }
   </style>
 
 </head>
@@ -159,12 +193,11 @@
     <td>16:55 - 02.07.2017</td>
     <td>John Doe</td>
     <td>orthomol immun 90g</td>
-    <td id="button1">
-      <a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a>
 
-    </td>
-    <td id="rr1">
-      Driver on the way
+    <td class="status">
+      <span class="button-container"><a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a></span>
+      <span class="delivered">Delivered</span>
+      <span class="driver">Driver on the way</span>
     </td>
   </tr>
 
@@ -173,8 +206,11 @@
     <td>16:55 - 02.07.2017</td>
     <td>John Doe</td>
     <td>orthomol immun 90g</td>
-    <td class="driver">
-      Driver on the way
+
+    <td class="status driver">
+      <span class="button-container"><a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a></span>
+      <span class="delivered">Delivered</span>
+      <span class="driver">Driver on the way</span>
     </td>
   </tr>
 
@@ -184,8 +220,11 @@
     <td>16:55 - 02.07.2017</td>
     <td>John Doe</td>
     <td>orthomol immun 90g</td>
-    <td class="delivered">
-      Driver on the way
+
+    <td class="status delivered">
+      <span class="button-container"><a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a></span>
+      <span class="delivered">Delivered</span>
+      <span class="driver">Driver on the way</span>
     </td>
   </tr>
 
