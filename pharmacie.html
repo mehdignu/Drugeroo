@@ -28,25 +28,36 @@
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     }
 
+    table {
+      width: 100%;
+    }
+
+    tr {
+      width: 100%;
+    }
+
+    td {
+      padding: 10px 15px;
+    }
+
+    tr:nth-child(odd) td {
+      background-color: #F7F7F7!important;
+    }
+
     .boo th{
       background-color:#373A3C;
       color:white;
-      width:100%;
-      padding-right: 83px;
-    padding-left: 13px;
+      text-align: center;
+      padding: 10px 15px;
     position: relative;
-      top: -20px
     }
 
     .boo td{
       background-color:white;
       color:black;
-      width:100%;
       border-bottom:1pt solid #F0FFF0;
-      padding-right: 83px;
-      padding-left: 15px;
       position: relative;
-      padding-bottom: 20px;
+
     }
 
     .yoo{
@@ -148,31 +159,23 @@
                </td>
              </tr>
 
-             <tr id="ew2">
+             <tr id="">
                <td>#443543231354</td>
                <td>16:55 - 02.07.2017</td>
                <td>John Doe</td>
                <td>orthomol immun 90g</td>
-               <td id="button2">
-                 <a onClick="sendIt(2)" type="button"  class="btn btn-success">Mark Ready</a>
-
-               </td>
-               <td id="rr2">
+               <td class="driver">
                  Driver on the way
                </td>
              </tr>
 
 
-             <tr id="ew3">
+             <tr id="">
                <td>#443543231354</td>
                <td>16:55 - 02.07.2017</td>
                <td>John Doe</td>
                <td>orthomol immun 90g</td>
-               <td id="button3">
-                 <a onClick="sendIt(3)" type="button" class="btn btn-success">Mark Ready</a>
-
-               </td>
-               <td id="rr3">
+               <td class="success">
                  Driver on the way
                </td>
              </tr>
