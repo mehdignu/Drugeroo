@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+  <title>Pusher Test</title>
+  <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('b91115f15fb79204ed0d', {
+    //  authTransport: 'jsonp',
+      cluster: "eu",
+      encrypted: true,
+  authEndpoint: "https://secure-temple-86252.herokuapp.com/pusher/auth" // 9090 can be substituted for the port you specified.
+
+
+});
+
+    var channel = pusher.subscribe('private-my-channel');
+    channel.bind('client-my-event', function(data) {
+      alert(data.message);
+    });
+  </script>
+</head>

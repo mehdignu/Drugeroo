@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bare - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+    html *
+    {
+
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    body {
+
+        /*padding-top: 70px;*/
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+
+    .boo th{
+      background-color:#373A3C;
+      color:white;
+      width:100%;
+      padding-right: 83px;
+    padding-left: 13px;
+    position: relative;
+      top: -20px
+    }
+
+    .boo td{
+      background-color:white;
+      color:black;
+      width:100%;
+      border-bottom:1pt solid #F0FFF0;
+      padding-right: 83px;
+      padding-left: 15px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .yoo{
+      background-color: #3FDBCC;
+    }
+
+    .ee{
+      background-image: url("images/doctor.jpg");
+/*
+      padding-top: 4px;
+      padding-bottom: 8px;
+      position: relative;
+      padding-right: 12px;
+      background-color:#00D0BC;
+      color: white;
+      font-size:30px;
+      padding-left: 13px;*/
+    }
+
+    .eee{
+
+
+     background-image: url("images/doctor.jpg");
+     /*color: white;
+
+      background-color:#3FDBCC;
+      font-size:22px;*/
+    }
+
+    [id^="ew"]{
+    display:none;
+    }
+
+   #button3{
+     display:block;
+     position:relative;
+    }
+
+    [id^="rr"]{
+      display:none;
+    }
+
+    .fill {
+    height: 118px;
+        overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-image: url('images/pharmacy.jpg');
+    }
+    </style>
+
+</head>
+
+<body>
+  <div class="fill"></div>
+
+    <!-- Navigation
+    <nav class="navbar navbar-inverse navbar-fixed-top yoo" role="navigation">
+      <div class="eee">
+
+       <span class="ee">Drugeroo</span>
+
+       Doctor's dashboard
+
+       </div>
+    </nav>-->
+
+    <!-- Page Content -->
+
+          <table class="boo">
+
+            <tr>
+               <th>Order Number</th>
+               <th>Date/Time</th>
+               <th>
+                 pharmacy's Name
+               </th>
+
+               <th>
+                 Medication
+               </th>
+
+               <th>
+                 status
+               </th>
+             </tr>
+
+             <tr id="ew1">
+               <td>#443543231354</td>
+               <td>16:55 - 02.07.2017</td>
+               <td>John Doe</td>
+               <td>orthomol immun 90g</td>
+               <td id="button1">
+                 <a onClick="sendIt(1)" type="button" class="btn btn-success">Mark Ready</a>
+
+               </td>
+               <td id="rr1">
+                 Driver on the way
+               </td>
+             </tr>
+
+             <tr id="ew2">
+               <td>#443543231354</td>
+               <td>16:55 - 02.07.2017</td>
+               <td>John Doe</td>
+               <td>orthomol immun 90g</td>
+               <td id="button2">
+                 <a onClick="sendIt(2)" type="button"  class="btn btn-success">Mark Ready</a>
+
+               </td>
+               <td id="rr2">
+                 Driver on the way
+               </td>
+             </tr>
+
+
+             <tr id="ew3">
+               <td>#443543231354</td>
+               <td>16:55 - 02.07.2017</td>
+               <td>John Doe</td>
+               <td>orthomol immun 90g</td>
+               <td id="button3">
+                 <a onClick="sendIt(3)" type="button" class="btn btn-success">Mark Ready</a>
+
+               </td>
+               <td id="rr3">
+                 Driver on the way
+               </td>
+             </tr>
+
+          </table>
+
+<!--
+            <div class="col-lg-12 text-center">
+                <h1>A Bootstrap Starter Template</h1>
+                <p class="lead">Complete with pre-defined file paths that you won't have to change!!</p>
+                <ul class="list-unstyled">
+                    <li class="boo">Bootstrap v3.3.7</li>
+                    <li>jQuery v1.11.1</li>
+                </ul>
+
+
+            </div>
+        </div>
+
+-->
+    <!-- /.container -->
+
+    <!-- jQuery Version 1.11.1 -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+    <script>
+    var i = 1;
+
+
+      // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
+
+      var pusher = new Pusher('b91115f15fb79204ed0d', {
+      //  authTransport: 'jsonp',
+        cluster: "eu",
+        encrypted: true,
+    authEndpoint: "https://secure-temple-86252.herokuapp.com/pusher/auth" // 9090 can be substituted for the port you specified.
+    });
+
+      var channel = pusher.subscribe('private-drugeroo-channel');
+      channel.bind('client-doctor-pharmacy-event', function(data) {
+        document.getElementById('ew'+i).style["display"] = "table-row";
+        i++;
+      });
+
+      function sendIt(x){
+
+        document.getElementById('rr'+x).style["display"] = "table-row";
+        document.getElementById('rr'+x).style["color"] = "#E46847";
+       document.getElementById('button'+x).style["display"] = "none";
+          var triggered = channel.trigger('client-doctor-confirmed-event', { });
+
+          }
+    </script>
+</body>
+
+</html>
